@@ -85,7 +85,6 @@ void execute(char x, array& array, bool *running)
 		int val;
 		while(true)
 		{
-			std::printf("Enter value for cell %d: ", array.getPointerPos());
 			std::cin >> val;
 			if(std::cin.fail())
 			{
