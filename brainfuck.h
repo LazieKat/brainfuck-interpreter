@@ -25,7 +25,7 @@ class array
 {
 	public:
 		array();
-		array(int x);
+		array(int x, bool verbose = false);
 		void incrementPointer();
 		void decrementPointer();
 		int getPointerPos();

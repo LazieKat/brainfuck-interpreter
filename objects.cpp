@@ -51,32 +51,58 @@ array::array()
 	std::cerr << "Error: You must specify array length." << std::endl;
 }
 
-array::array(int x)
+array::array(int x, bool verbose)
 {
 	(*this).capacity = x-1; // numbering starts from 0;
 	(*this).pointerPos = 0;
 
 	(*this).contents = new cell[x];
 	for(int i = 0; i <= (*this).capacity; i++)
-		contents[i].setPosition(i);
+	{
+		(*this).contents[i].setPosition(i);
+	}
 
-	std::printf("Array with %d cells created\n", x);
+	if(verbose)
+	{
+		std::printf("Array initilized ith %d cells\n", x);
+	}	
 }
 
 void array::incrementPointer()
 {
 	if((*this).pointerPos + 1 <= (*this).capacity)
+	{
 		(*this).pointerPos++;
+	}
 	else
-		std::cerr << "Error: array upper limit reached." << std::endl;
+	{
+		int newSize = ((*this).capacity + 1)*2;
+		cell *temp = new cell[newSize];
+		for(int i = 0; i < newSize; i++)
+		{
+			if(i <= (*this).capacity)
+			{
+				temp[i].setValue((*this).contents[i].getValue());
+			}
+			temp[i].setPosition(i);
+		}
+		delete (*this).contents;
+		(*this).contents = temp;
+		(*this).capacity = newSize - 1;
+		(*this).pointerPos++;
+	}
 }
 
 void array::decrementPointer()
 {
 	if((*this).pointerPos - 1 >= 0)
+	{
 		(*this).pointerPos--;
+	}
 	else
+	{
 		std::cerr << "Error: array bottom limit reached." << std::endl;
+	}
 }
 
 int array::getPointerPos()

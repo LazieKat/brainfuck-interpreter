@@ -1,35 +1,48 @@
 #include "brainfuck.h"
 #include <iostream>
+#include <fstream>
 
-int main()
+int main(int argc, char *argv[])
 {
-	int arrayLength = 0;
-
-	while(arrayLength == 0)
-	{
-		std::cout << "Enter array length needed: ";
-		std::cin >> arrayLength;
-		if(std::cin.fail())
-		{
-			std::cerr << "Not Valid \n";
-			std::cin.clear();
-			std::cin.ignore(10000, '\n');
-		}
-	}
+	int arrayLength = 1000000;
 
 	array mainArray(arrayLength);
-	std::cin.ignore(10000, '\n');
-
 	bool running = true;
-	while(running)
+
+	if(argv[1] != NULL)
 	{
-		std::cout << ">> ";
-		std::string input;
-		std::getline(std::cin, input);
-		
-		for(int i = 0; i < input.length(); i++)
+		std::fstream file;
+		file.open(argv[1]);
+		if(file.is_open())
 		{
-			interpret(input[i], mainArray, &running);
+			std::string line;
+			while(std::getline(file, line) && running)
+			{
+				for(int i = 0; i <= line.length(); i++)
+				{
+					interpret(line[i], mainArray, &running);
+				}
+			}
+			std::cout << "\nExecution completed, press Enter to exit...";
+			std::getchar();
+		}
+		else
+		{
+			std::cout << "File does not exist\n";
+		}
+	}
+	else
+	{
+		while(running)
+		{
+			std::cout << ">> ";
+			std::string input;
+			std::getline(std::cin, input);
+			
+			for(int i = 0; i < input.length(); i++)
+			{
+				interpret(input[i], mainArray, &running);
+			}
 		}
 	}
 }
