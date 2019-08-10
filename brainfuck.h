@@ -1,8 +1,6 @@
 #ifndef BRAINFUCK_OBJECTS_HPP
 #define BRAINFUCK_OBJECTS_HPP
 
-#include <string>
-
 class cell
 {
 	public:
