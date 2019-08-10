@@ -82,7 +82,7 @@ void execute(char x, array& array, bool *running)
 	}
 	else if(x == ',')
 	{
-		int val;
+		char val;
 		while(true)
 		{
 			std::cin >> val;
@@ -92,18 +92,20 @@ void execute(char x, array& array, bool *running)
 				std::cin.clear();
 				std::cin.ignore(10000, '\n');
 			}
+			/*
 			else if(val > 255 || val < 0)
 			{
 				std::cout << "Value cannot be negative or larger than one byte.\n";
 				std::cin.ignore(10000, '\n');
 			}
+			*/
 			else
 			{
 				std::cin.ignore(10000, '\n');
 				break;
 			}
 		}
-		array.contents[array.getPointerPos()].setValue(val);
+		array.contents[array.getPointerPos()].setValue((int) val);
 	}
 }
 
